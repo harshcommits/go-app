@@ -5,18 +5,20 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/goriila/mux"
+	"github.com/gorilla/mux"
 )
 
 func testRoute(w http.ResponseWriter, r *http.Request) {
 
-	router := mux.NewRouter()
-	log.Fatal(http.ListenAndServe(":8080", router))
+	fmt.Fprint(w, "Testing from backend")
 
 }
 
 func main() {
 
-	fmt.Println("This is a test")
+	router := mux.NewRouter()
+	router.HandleFunc("/", testRoute)
+	fmt.Println("Server started and listening on port 8080")
+	log.Fatal(http.ListenAndServe(":8080", nil))
 
 }
